@@ -2,30 +2,22 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  let appComponentInstance: AppComponent;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
     }).compileComponents();
+
+    appComponentInstance =
+      TestBed.createComponent(AppComponent).componentInstance;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  it('should have 1 to 5 as default numbers', () => {
+    const expectedNumbers = [1, 2, 3, 4, 5];
 
-  it(`should have as title 'meetup-tests'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('meetup-tests');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('meetup-tests app is running!');
+    appComponentInstance.defaultNumbers$.subscribe((defaultNumbers) => {
+      expect(defaultNumbers).toEqual(expectedNumbers);
+    });
   });
 });
