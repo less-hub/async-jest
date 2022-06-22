@@ -14,17 +14,19 @@ describe('AppComponent', () => {
       TestBed.createComponent(AppComponent).componentInstance;
   });
 
-  it('should emit first value as numbers from 1 to 5', async () => {
+  it('should emit first value as numbers from 1 to 5', (done) => {
     const expectedNumbers = [1, 2, 3, 4, 5];
-    const numbers = await firstValueFrom(appComponentInstance.defaultNumbers$);
-
-    expect(numbers).toEqual(expectedNumbers);
+    appComponentInstance.defaultNumbers$.subscribe((numbers) => {
+      expect(numbers).toEqual(expectedNumbers);
+      done();
+    });
   });
 
-  it('should emit last value as numbers from 6 to 10', async () => {
+  it('should emit first value as numbers from 6 to 10', (done) => {
     const expectedNumbers = [6, 7, 8, 9, 10];
-    const numbers = await lastValueFrom(appComponentInstance.defaultNumbers$);
-
-    expect(numbers).toEqual(expectedNumbers);
+    appComponentInstance.defaultNumbers$.subscribe((numbers) => {
+      expect(numbers).toEqual(expectedNumbers);
+      done();
+    });
   });
 });
