@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -13,11 +14,17 @@ describe('AppComponent', () => {
       TestBed.createComponent(AppComponent).componentInstance;
   });
 
-  it('should have 1 to 5 as default numbers', () => {
+  it('should emit first value as numbers from 1 to 5', async () => {
     const expectedNumbers = [1, 2, 3, 4, 5];
+    const numbers = await firstValueFrom(appComponentInstance.defaultNumbers$);
 
-    appComponentInstance.defaultNumbers$.subscribe((defaultNumbers) => {
-      expect(defaultNumbers).toEqual(expectedNumbers);
-    });
+    expect(numbers).toEqual(expectedNumbers);
+  });
+
+  it('should emit last value as numbers from 6 to 10', async () => {
+    const expectedNumbers = [6, 7, 8, 9, 10];
+    const numbers = await lastValueFrom(appComponentInstance.defaultNumbers$);
+
+    expect(numbers).toEqual(expectedNumbers);
   });
 });

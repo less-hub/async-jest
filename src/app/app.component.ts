@@ -9,5 +9,8 @@ export const DEFAULT_NUMBERS = [...Array(5).keys()].map((number) => ++number);
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  defaultNumbers$ = of(DEFAULT_NUMBERS);
+  defaultNumbers$ = of(
+    DEFAULT_NUMBERS,
+    DEFAULT_NUMBERS.map((number) => number + 5)
+  );
 }
